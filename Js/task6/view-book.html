@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Books</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container my-3 mx-auto">
+        <a href="./item-form.html" class="btn btn-outline-success"> Go Back</a>
+    </div>
+    <div class="container p-2">
+        <h1 style="color: green;">See Your Books Here</h1>
+        <div class="row p-5" id="BookList" >
+            <!-- The added products will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        // Retrieve products from local storage and display them
+        document.addEventListener('DOMContentLoaded', function () {
+            const bookListElementsById = document.getElementById('BookList');
+            const books = JSON.parse(localStorage.getItem('products')) || [];
+
+            if (books.length === 0) {
+                bookListElementsById.innerHTML = '<p>No products added yet.</p>';
+            } else {
+                let booksHTML = '';
+                for (const book of books) {
+                    booksHTML += `
+                        <div class="col-md-4 mb-3" >
+                            <div class="card" style="background-color:azure">
+                                <img src="${book.image}" alt="${book.name}" class="card-img-top" style="max-width: 200px; font-size: large;
+">
+                                <div class="card-body">
+                                    <h5 class="card-title">${book.name}</h5>
+                                    <p class="card-text"><strong>Price:</strong> &#8377;${book.price}</p>
+                                    <p class="card-text"><strong>Category:</strong> ${book.category}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+                bookListElementsById.innerHTML = booksHTML;
+            }
+        });
+    </script>
+
+    <!-- Add Bootstrap JS and jQuery script links -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
